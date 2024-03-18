@@ -3,7 +3,7 @@
 
 ## Prérequis: 
 
-Vous avez besoin de Node v16 d'une version supérieure pour exécuter ce programme.
+Vous avez besoin de Node v19+ d'une version supérieure pour exécuter ce programme.
 
 - pour installer Node (Windows & MacOS) : https://nodejs.org/en/download
 
