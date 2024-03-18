@@ -1,14 +1,19 @@
 const { ChatOpenAI } = require("@langchain/openai");
-const { ChatPromptTemplate } = require("@langchain/core/prompts");
+const { PromptTemplate } = require("@langchain/core/prompts");
 const readlineSync = require("readline-sync");
 require("dotenv").config();
 
 
 const model = new ChatOpenAI({});
+const prompt = PromptTemplate.fromTemplate(
+  "Tell me a joke about {topic}"
+);
 
-const generateResponse = async (message) => {   
-    const response = await model.invoke(message)
-    console.log(response.content)
+const generateResponse = async (message) => {
+  const chain = prompt.pipe(model)   
+  return await chain.invoke({
+    topic: message
+  })
 }
 
 function getInput(promptMessage) {
@@ -27,7 +32,8 @@ function getInput(promptMessage) {
   
   async function runConversation() {
     while (true) {
-      const input = getInput("You: ");
+      console.log("Tell me a joke about...");
+      const input = getInput("Topic: ");
   
       if (input === "x") {
         console.log("\x1b[34mBot: Bye! 👋🏽");
@@ -45,5 +51,5 @@ function getInput(promptMessage) {
     }
   }
 
-generateResponse("Tell me a joke about bears") 
+main()
   
