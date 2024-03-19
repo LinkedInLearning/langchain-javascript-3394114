@@ -30,10 +30,21 @@ const splitDocuments = async () => {
   
   const chunks = await textSplitter.splitDocuments(docs);
   console.log(`Nombre de documents : ${docs.length}, nombre de chunks : ${chunks.length}`);
+  return chunks;
  }
 
 // Créer une base de données vectorielle
-const createVectorStore = async (docs) => { }
+const createVectorStore = async (docs) => { 
+  // console.log(docs)
+  docsContents = docs.map(doc => doc.pageContent)
+  const vectorStore = await HNSWLib.fromTexts(
+    docsContents,
+    [{ id: 1 }],
+    new OpenAIEmbeddings()
+  );
+  const retriever = vectorStore.asRetriever();
+  return retriever
+}
 
 // Créer la chaîne de composants pour générer du contenu augmenté
 const createChain = async (query) => {}
@@ -57,7 +68,15 @@ async function main() {
   runConversation();
 }
 
-splitDocuments()
+const test = async () => {
+  const chunks = await splitDocuments();
+  await createVectorStore(chunks);
+  // await createChain();
+  // await generateResponse();
+}
+
+test()
+
 
 async function runConversation() {
   while (true) {
