@@ -20,7 +20,17 @@ const prompt =
 Question: {question}`);
 
 // Fragmenter les documents en plusieurs morceaux
-const splitDocuments = async () => { }
+const splitDocuments = async () => {
+  const loader = new TextLoader("./docs/faq_fr.txt");
+  const docs = await loader.load();
+  const textSplitter = new RecursiveCharacterTextSplitter({
+    chunkSize: 100,
+    chunkOverlap: 0,
+  });
+  
+  const chunks = await textSplitter.splitDocuments(docs);
+  console.log(`Nombre de documents : ${docs.length}, nombre de chunks : ${chunks.length}`);
+ }
 
 // Créer une base de données vectorielle
 const createVectorStore = async (docs) => { }
@@ -47,6 +57,8 @@ async function main() {
   runConversation();
 }
 
+splitDocuments()
+
 async function runConversation() {
   while (true) {
     const input = getInput("You: ");
@@ -66,5 +78,5 @@ async function runConversation() {
     }
   }
 }
-main()
+// main()
 
