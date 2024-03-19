@@ -29,7 +29,7 @@ const splitDocuments = async () => {
   });
   
   const chunks = await textSplitter.splitDocuments(docs);
-  console.log(`Nombre de documents : ${docs.length}, nombre de chunks : ${chunks.length}`);
+  // console.log(`Nombre de documents : ${docs.length}, nombre de chunks : ${chunks.length}`);
   return chunks;
  }
 
@@ -56,7 +56,8 @@ const createChain = async (query) => {
       question: new RunnablePassthrough(),
     },
     prompt,
-    model
+    model, 
+    new StringOutputParser(),
   ]);
   
 }
@@ -93,8 +94,7 @@ async function runConversation() {
     if (!!input) {
       try {
         const response = await generateResponse(input);
-        console.log(response.content)
-        // console.log("\x1b[32mBot: " + response + "\x1b[0m");
+        console.log("\x1b[32mBot: " + response + "\x1b[0m");
       } catch (error) {
         console.error(error);
       }
