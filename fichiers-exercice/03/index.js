@@ -47,11 +47,24 @@ const createVectorStore = async (docs) => {
 }
 
 // Créer la chaîne de composants pour générer du contenu augmenté
-const createChain = async (query) => {}
+const createChain = async (query) => {
+  const chunks = await splitDocuments();
+  const retriever = await createVectorStore(chunks);
+  return RunnableSequence.from([
+    {
+      context: retriever.pipe(formatDocumentsAsString),
+      question: new RunnablePassthrough(),
+    },
+    prompt,
+    model
+  ]);
+  
+}
 
 // Exécuter la chaîne de composants pour générer du contenu augmenté
 const generateResponse = async (query) => {
-  return query
+  const chain = await createChain(query);
+  return await chain.invoke(query)
 };
 
 function getInput(promptMessage) {
@@ -68,16 +81,6 @@ async function main() {
   runConversation();
 }
 
-const test = async () => {
-  const chunks = await splitDocuments();
-  await createVectorStore(chunks);
-  // await createChain();
-  // await generateResponse();
-}
-
-test()
-
-
 async function runConversation() {
   while (true) {
     const input = getInput("You: ");
@@ -90,12 +93,13 @@ async function runConversation() {
     if (!!input) {
       try {
         const response = await generateResponse(input);
-        console.log("\x1b[32mBot: " + response + "\x1b[0m");
+        console.log(response.content)
+        // console.log("\x1b[32mBot: " + response + "\x1b[0m");
       } catch (error) {
         console.error(error);
       }
     }
   }
 }
-// main()
+main()
 
