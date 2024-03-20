@@ -7,6 +7,7 @@ import {
 } from "@langchain/core/runnables";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
+import readlineSync from "readline-sync";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -27,3 +28,20 @@ Question: {question}
 SQL Query:`);
 
 const model = new ChatOpenAI();
+
+const sqlQueryGeneratorChain = RunnableSequence.from([
+  RunnablePassthrough.assign({
+    schema: async () => db.getTableInfo(),
+  }),
+  prompt,
+  model.bind({ stop: ["\nSQLResult:"] }),
+  new StringOutputParser(),
+]);
+
+const result = await sqlQueryGeneratorChain.invoke({
+  question: "How many employees are there?",
+});
+
+console.log({
+  result,
+});
