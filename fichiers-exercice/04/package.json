@@ -4,8 +4,12 @@
     "@langchain/openai": "^0.0.13",
     "dotenv": "^16.4.1",
     "langchain": "^0.1.9",
+    "readline-sync": "^1.4.10",
     "sqlite3": "^5.1.7",
     "typeorm": "^0.3.20"
+  },
+  "scripts": {
+    "start": "node index.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.9",
