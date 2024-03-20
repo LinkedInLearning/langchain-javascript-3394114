@@ -39,9 +39,38 @@ const sqlQueryGeneratorChain = RunnableSequence.from([
 ]);
 
 const result = await sqlQueryGeneratorChain.invoke({
-  question: "How many employees are there?",
+  question: "Combien y a-t-il d'employés?",
 });
 
 console.log({
   result,
 });
+
+const finalResponsePrompt =
+  PromptTemplate.fromTemplate(`Based on the table schema below, question, sql query, and sql response, write a natural language response:
+{schema}
+
+Question: {question}
+SQL Query: {query}
+SQL Response: {response}`);
+
+const fullChain = RunnableSequence.from([
+  RunnablePassthrough.assign({
+    query: sqlQueryGeneratorChain,
+  }),
+  {
+    schema: async () => db.getTableInfo(),
+    question: (input) => input.question,
+    query: (input) => input.query,
+    response: (input) => db.run(input.query),
+  },
+  finalResponsePrompt,
+  model,
+  new StringOutputParser(),
+]);
+
+const finalResponse = await fullChain.invoke({
+  question: "Combien y a-t-il d'employés?",
+});
+
+console.log(finalResponse);
