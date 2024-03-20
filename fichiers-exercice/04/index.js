@@ -38,13 +38,6 @@ const sqlQueryGeneratorChain = RunnableSequence.from([
   new StringOutputParser(),
 ]);
 
-const result = await sqlQueryGeneratorChain.invoke({
-  question: "Combien y a-t-il d'employés?",
-});
-
-console.log({
-  result,
-});
 
 const finalResponsePrompt =
   PromptTemplate.fromTemplate(`Based on the table schema below, question, sql query, and sql response, write a natural language response:
@@ -69,8 +62,49 @@ const fullChain = RunnableSequence.from([
   new StringOutputParser(),
 ]);
 
-const finalResponse = await fullChain.invoke({
-  question: "Combien y a-t-il d'employés?",
-});
 
-console.log(finalResponse);
+const generateResponse = async (query) => {
+  await sqlQueryGeneratorChain.invoke({
+    question: query,
+  });
+  return await fullChain.invoke({
+    question: query,
+  });
+};
+
+function getInput(promptMessage) {
+  return readlineSync.question(promptMessage, {
+    hideEchoBack: false, // The typed characters won't be displayed if set to true
+  });
+}
+
+async function main() {
+  console.log("\x1b[34m \n\n----------------------------------");
+  console.log("          CHAT WITH AI 🤖   ");
+  console.log("----------------------------------\n \x1b[0m");
+  console.log("\x1b[34mTaper 'x' pour quitter l'application\n  \x1b[0m");
+  runConversation();
+}
+
+async function runConversation() {
+  while (true) {
+    const input = getInput("You: ");
+
+    if (input === "x") {
+      console.log("\x1b[34mBot: Bye! 👋🏽");
+      process.exit();
+    }
+
+    if (!!input) {
+      try {
+        const response = await generateResponse(input);
+        console.log("\x1b[32mBot: " + response + "\x1b[0m");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+}
+main()
+
+
