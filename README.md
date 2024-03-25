@@ -1,6 +1,6 @@
-# L’essentiel de Langchain pour le développement en Javascript
+# L’essentiel de Langchain pour le développement en JavaScript
 
-Ce dossier Repository est lié au cours `Nom final de la formation`. Le cours entier est disponible sur [LinkedIn Learning][lil-course-url].
+Ce dossier Repository est lié au cours `L’essentiel de Langchain pour le développement en JavaScript`. Le cours entier est disponible sur [LinkedIn Learning][lil-course-url].
 
 ![Nom final de la formation][lil-thumbnail-url] 
 
