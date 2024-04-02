@@ -4,7 +4,7 @@ Ce dossier Repository est lié au cours `L’essentiel de Langchain pour le dév
 
 ![L’essentiel de Langchain pour le développement en JavaScript][lil-thumbnail-url] 
 
-Si vous êtes développeur Python, alors suivez cette formation sur le framework LangChain. Sandy Ludosky vous présente LangChain et ses composants, les prérequis et l'installation des fichiers d'exercice. Vous aborderez son interface et son intégration avec OpenAI, vous utiliserez le langage d'expression LangChain (LCEL), et créerez des chaînes de composants avec des templates prompts. Vous développerez un super agent et un support client en définissant le RAG, en fragmentant les documents, en créant un vector store (ChromaDB), en générant du contenu et des réponses (FAQ). Puis, vous apprendrez à publier avec LangServe, à créer une API REST avec FastAPI, à déployer avec Render et GitHub.		
+Avec Sandy Ludosky, découvrez l'essentiel de LangChain pour le développement d'applications en JavaScript mettant en œuvre les modèles de langage. Vous serez guidé de l'installation des outils à la création d'applications, incluant la génération augmentée et l'interaction avec les bases de données SQL. Vous apprendrez à créer des chaînes, à fragmenter des documents, à exécuter des requêtes SQL et même à développer un agent IA expert. Cette formation se terminera avec un exercice dans lequel vous devrez créer un agent IA expert capable de réponde aux questions ciblées.
 
 ## Instructions
 
