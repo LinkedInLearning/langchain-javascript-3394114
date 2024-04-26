@@ -34,7 +34,7 @@ La branche master correspond au code à la fin de la formation.
 
 [0]: # (Replace these placeholder URLs with actual course URLs)
 [lil-course-url]: https://www.linkedin.com/learning/l-essentiel-de-langchain-pour-le-developpement-en-javascript
-[lil-thumbnail-url]: 
+[lil-thumbnail-url]: https://media.licdn.com/dms/image/D4E0DAQFopBBKfCn9ng/learning-public-crop_675_1200/0/1714119993796?e=2147483647&v=beta&t=yRYBG2H0T7vzBPuatZ1snKbasRBS2kqkHol4pzFKyFQ
 [lil-URL-trainer]: https://www.linkedin.com/learning/instructors/sandy-ludosky
 
 [1]: # (End of FR-Instruction ###############################################################################################)
